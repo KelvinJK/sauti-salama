@@ -1,0 +1,2 @@
+# Instructions for coding agents
+Work only inside this repository unless explicitly authorized. Make small, reviewable changes and run lint, typecheck and tests. Do not invent clinical guidance, diagnoses, or medical claims. Do not expose secrets or access personal health records. Never run destructive SQL/migrations, publish repositories, change cloud infrastructure or deploy without explicit approval. Prefer shared TypeScript contracts and a NestJS API boundary for sensitive operations. Add tests for user data isolation and permissions.

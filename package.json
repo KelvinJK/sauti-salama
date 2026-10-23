@@ -1,0 +1,1 @@
+{"name":"sauti-salama","private":true,"packageManager":"pnpm@11.8.0","scripts":{"dev:mobile":"pnpm --dir apps/mobile start","dev:web":"pnpm --dir apps/web dev","dev:api":"pnpm --dir apps/api start:dev"}}
