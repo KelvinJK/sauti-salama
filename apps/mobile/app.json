@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "Sauti Salama",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,6 +20,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eeabe50a-2736-4ce7-813a-3a496d5a7ba9"
+      }
+    },
+    "owner": "evolucion-technologies"
   }
 }
