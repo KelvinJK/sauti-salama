@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Feature / Cycle Tracking">
+<path id="Vector" opacity="0.11" d="M30.25 6.41667H13.75C8.68739 6.41667 4.58333 10.5207 4.58333 15.5833V32.0833C4.58333 37.1459 8.68739 41.25 13.75 41.25H30.25C35.3126 41.25 39.4167 37.1459 39.4167 32.0833V15.5833C39.4167 10.5207 35.3126 6.41667 30.25 6.41667Z" fill="#786C99"/>
+<path id="Vector_2" d="M29.7917 3.66667H14.2083C8.63946 3.66667 4.125 8.18113 4.125 13.75V28.875C4.125 34.4439 8.63946 38.9583 14.2083 38.9583H29.7917C35.3605 38.9583 39.875 34.4439 39.875 28.875V13.75C39.875 8.18113 35.3605 3.66667 29.7917 3.66667Z" fill="url(#paint0_linear_0_367)" stroke-width="1.87234" stroke="white"/>
+<path id="Vector_3" opacity="0.85" d="M9.16667 10.0833C11.9167 6.72222 15.7361 5.19444 20.625 5.5" stroke-width="4.68085" stroke-linecap="round" stroke="white"/>
+<path id="Vector_4" d="M11 9.16667V11.4583M11 11.4583V15.125M11 11.4583H8.70833V16.5M11 11.4583H33M33 9.16667V11.4583M33 11.4583V15.125M33 11.4583H35.2917V16.5M8.25 16.5H8.70833M8.70833 16.5H35.2917M8.70833 16.5V36.2083H35.2917V16.5M35.2917 16.5H35.75M15.125 22.9167H20.1667M24.2917 22.9167H29.3333M15.125 29.7917H20.1667" stroke-width="4.86808" stroke-linecap="round" stroke-linejoin="round" stroke="#E45B9D"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_367" x1="4.125" y1="3.66667" x2="39.4137" y2="39.4137" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.34" stop-color="#FFE5F0"/>
+<stop offset="1" stop-color="#FFE5F0"/>
+</linearGradient>
+</defs>
+</svg>
