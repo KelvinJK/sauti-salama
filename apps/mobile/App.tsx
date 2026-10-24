@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
 const C = { purple:'#7139E8', plum:'#331568', ink:'#252042', muted:'#79738D', line:'#EAE6F4', lilac:'#EFE8FF', pink:'#FFE6EF', cream:'#FFF8F3', mint:'#E5F7F3', green:'#EAF9EF', white:'#FFFFFF' };
-type Page = 'welcome' | 'language' | 'home' | 'module';
+type Page = 'welcome' | 'language' | 'privacy' | 'home' | 'module';
 type Language = 'English' | 'Kiswahili';
 const modules = [
   {title:'Reproductive Health', color:C.pink, icon:require('./assets/figma/reproductive-health.png')},
@@ -21,9 +21,9 @@ export default function App() {
   const [selected,setSelected]=useState('Reproductive Health');
   const {width}=useWindowDimensions();
   const cardWidth=Math.min((width-54)/2,168);
-  const back=()=>setPage(page==='module'?'home':page==='home'?'language':'welcome');
+  const back=()=>setPage(page==='module'?'home':page==='home'?'privacy':page==='privacy'?'language':'welcome');
   return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content"/>
-    {page!=='welcome' && <View style={s.header}><Pressable onPress={back} accessibilityLabel="Go back" style={s.back}><Text style={s.backText}>‹</Text></Pressable><Text style={s.headerTitle}>{page==='language'?'Welcome':page==='home'?'SautiSalama':selected}</Text></View>}
+    {page!=='welcome' && <View style={s.header}><Pressable onPress={back} accessibilityLabel="Go back" style={s.back}><Text style={s.backText}>‹</Text></Pressable><Text style={s.headerTitle}>{page==='language'?'Welcome':page==='privacy'?'Privacy & consent':page==='home'?'SautiSalama':selected}</Text></View>}
     {page==='welcome' && <ScrollView contentContainerStyle={s.welcome} showsVerticalScrollIndicator={false}>
       <Image source={require('./assets/figma/official-logo.png')} style={s.logo} resizeMode="contain"/>
       <View style={s.illustration}><View style={s.illustrationInner}/><Image source={require('./assets/figma/welcome-companion.png')} style={s.companion} resizeMode="contain"/></View>
@@ -41,7 +41,18 @@ export default function App() {
         <View style={s.langIcon}><Text style={{fontSize:23}}>文</Text></View><View style={{flex:1}}><Text style={s.langTitle}>{l}</Text><Text style={s.langSub}>Continue in {l==='Kiswahili'?'Swahili':'English'}</Text></View><Text style={s.chevron}>{language===l?'✓':'›'}</Text>
       </Pressable>)}
       <View style={s.privacy}><Text style={s.privacyTitle}>Your privacy matters</Text><Text style={s.privacySub}>Browse articles without an account. Personal tracking is optional.</Text></View>
-      </ScrollView><View style={s.bottomCta}><PrimaryButton label="Continue as guest" onPress={()=>setPage('home')}/></View></View>}
+      </ScrollView><View style={s.bottomCta}><PrimaryButton label="Continue as guest" onPress={()=>setPage('privacy')}/></View></View>}
+    {page==='privacy' && <View style={s.fill}><ScrollView contentContainerStyle={s.content}>
+      <Text style={s.title}>Your data stays in your control</Text><Text style={s.subtitle}>We explain what is saved, why, and who may access it.</Text>
+      <View style={{height:22}}/>
+      {[
+        ['Guest browsing','No registration or identity required'],
+        ['Saved health entries','Optional · requires your consent'],
+        ['Location','Only used with permission for nearby care'],
+        ['Referral requests','Only shared with your selected provider']
+      ].map(([title,detail])=><View key={title} style={s.langCard}><View style={s.langIcon}><Text style={{fontSize:22,color:C.purple}}>✦</Text></View><View style={{flex:1}}><Text style={s.langTitle}>{title}</Text><Text style={s.langSub}>{detail}</Text></View></View>)}
+      <View style={[s.privacy,{backgroundColor:'#F7F5FC'}]}><Text style={{color:C.plum,fontWeight:'700',fontSize:15}}>No health data shared automatically.</Text></View>
+    </ScrollView><View style={s.bottomCta}><PrimaryButton label="Continue privately" onPress={()=>setPage('home')}/></View></View>}
     {page==='home' && <ScrollView contentContainerStyle={s.content}>
       <Text style={s.title}>Habari, welcome back</Text><Text style={s.subtitle}>What would you like to explore today?</Text>
       <View style={s.grid}>{modules.map(m=><Pressable key={m.title} onPress={()=>{setSelected(m.title);setPage('module');}} style={[s.module,{backgroundColor:m.color,width:cardWidth}]} accessibilityRole="button">
