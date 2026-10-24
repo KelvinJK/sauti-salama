@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
 const C = { purple:'#7139E8', plum:'#331568', ink:'#252042', muted:'#79738D', line:'#EAE6F4', lilac:'#EFE8FF', pink:'#FFE6EF', cream:'#FFF8F3', mint:'#E5F7F3', green:'#EAF9EF', white:'#FFFFFF' };
-type Page = 'welcome' | 'language' | 'privacy' | 'home' | 'module';
+export type Page = 'welcome' | 'language' | 'privacy' | 'home' | 'module';
 type Language = 'English' | 'Kiswahili';
 const modules = [
   {title:'Reproductive Health', color:C.pink, icon:require('./assets/figma/reproductive-health.png')},
@@ -15,13 +16,16 @@ const modules = [
 function PrimaryButton({label,onPress}:{label:string,onPress:()=>void}) {
   return <Pressable accessibilityRole="button" onPress={onPress} style={s.button}><Text style={s.buttonText}>{label}  →</Text></Pressable>;
 }
-export default function App() {
-  const [page,setPage]=useState<Page>('welcome');
+export default function App({ page }: { page: Page }) {
+  const router = useRouter();
+  const params = useLocalSearchParams<{ title?: string }>();
+  const setPage = (next: Page) => { router.push(next === 'welcome' ? '/' : '/'+next as any); };
   const [language,setLanguage]=useState<Language>('English');
-  const [selected,setSelected]=useState('Reproductive Health');
+  const selected = typeof params.title === 'string' ? params.title : 'Reproductive Health';
+  const showModule = (title: string) => router.push({pathname:'/module',params:{title}});
   const {width}=useWindowDimensions();
   const cardWidth=Math.min((width-54)/2,168);
-  const back=()=>setPage(page==='module'?'home':page==='home'?'privacy':page==='privacy'?'language':'welcome');
+  const back=()=>router.back();
   return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content"/>
     {page!=='welcome' && <View style={s.header}><Pressable onPress={back} accessibilityLabel="Go back" style={s.back}><Text style={s.backText}>‹</Text></Pressable><Text style={s.headerTitle}>{page==='language'?'Welcome':page==='privacy'?'Privacy & consent':page==='home'?'SautiSalama':selected}</Text></View>}
     {page==='welcome' && <ScrollView contentContainerStyle={s.welcome} showsVerticalScrollIndicator={false}>
@@ -55,10 +59,10 @@ export default function App() {
     </ScrollView><View style={s.bottomCta}><PrimaryButton label="Continue privately" onPress={()=>setPage('home')}/></View></View>}
     {page==='home' && <ScrollView contentContainerStyle={s.content}>
       <Text style={s.title}>Habari, welcome back</Text><Text style={s.subtitle}>What would you like to explore today?</Text>
-      <View style={s.grid}>{modules.map(m=><Pressable key={m.title} onPress={()=>{setSelected(m.title);setPage('module');}} style={[s.module,{backgroundColor:m.color,width:cardWidth}]} accessibilityRole="button">
+      <View style={s.grid}>{modules.map(m=><Pressable key={m.title} onPress={()=>showModule(m.title)} style={[s.module,{backgroundColor:m.color,width:cardWidth}]} accessibilityRole="button">
       <Image source={m.icon} style={{width:44,height:44}} resizeMode="contain"/><Text style={s.moduleTitle}>{m.title}</Text></Pressable>)}</View>
-      <Pressable onPress={()=>{setSelected('Ask a private health question');setPage('module');}} style={s.ask}><Image source={require('./assets/figma/ask.png')} style={{width:52,height:52}} resizeMode="contain"/><Text style={s.askText}>Ask a private health question</Text><Text style={s.chevron}>›</Text></Pressable>
-      <Pressable onPress={()=>{setSelected('Find care');setPage('module');}} style={[s.ask,{backgroundColor:C.cream}]}><Text style={s.askText}>Find maternal health services</Text><Text style={s.chevron}>›</Text></Pressable>
+      <Pressable onPress={()=>showModule('Ask a private health question')} style={s.ask}><Image source={require('./assets/figma/ask.png')} style={{width:52,height:52}} resizeMode="contain"/><Text style={s.askText}>Ask a private health question</Text><Text style={s.chevron}>›</Text></Pressable>
+      <Pressable onPress={()=>showModule('Find care')} style={[s.ask,{backgroundColor:C.cream}]}><Text style={s.askText}>Find maternal health services</Text><Text style={s.chevron}>›</Text></Pressable>
       <Text style={s.disclaimer}>Demo interface only. No personal health data is being collected.</Text>
     </ScrollView>}
     {page==='module' && <View style={[s.content,{flex:1}]}><Text style={s.title}>{selected}</Text><Text style={s.subtitle}>This section is being built from the approved Figma designs.</Text><View style={s.privacy}><Text style={s.privacySub}>Personal tracking and clinical guidance are not enabled in this prototype.</Text></View><PrimaryButton label="Return to home" onPress={()=>setPage('home')}/></View>}
