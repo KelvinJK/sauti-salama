@@ -27,4 +27,11 @@ export const s=StyleSheet.create({
  ask:{marginTop:24,borderRadius:18,padding:14,backgroundColor:C.lilac,flexDirection:'row',alignItems:'center',gap:14},
  askText:{flex:1,fontSize:15,fontWeight:'700',color:C.purple},
  disclaimer:{fontSize:12,color:C.muted,marginTop:20,textAlign:'center'},
+ articleCard:{borderWidth:1,borderColor:C.line,borderRadius:18,padding:16,marginBottom:12,gap:6},
+ articleTitle:{fontSize:16,fontWeight:'700',color:C.plum,lineHeight:22},articleSummary:{fontSize:13,color:C.muted,lineHeight:19},
+ badge:{alignSelf:'flex-start',backgroundColor:C.pink,borderRadius:8,paddingHorizontal:8,paddingVertical:3},
+ badgeText:{fontSize:11,fontWeight:'700',color:C.plum},
+ banner:{backgroundColor:C.pink,borderRadius:14,padding:12,marginTop:14},bannerText:{fontSize:13,color:C.plum,lineHeight:19},
+ paragraph:{fontSize:15,color:C.ink,lineHeight:23,marginTop:14},
+ reviewMeta:{fontSize:12,color:C.muted,lineHeight:18},
 });

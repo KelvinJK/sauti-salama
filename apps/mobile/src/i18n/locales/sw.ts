@@ -66,4 +66,14 @@ export const sw: Translations = {
     notice: 'Ufuatiliaji binafsi na ushauri wa kitabibu havijawezeshwa katika toleo hili la majaribio.',
     returnHome: 'Rudi ukurasa wa mwanzo',
   },
+  content: {
+    listSubtitle: 'Makala huonekana hapa baada ya kukaguliwa na wataalamu wa afya.',
+    empty: 'Makala za mada hii zinaandaliwa na kukaguliwa na wataalamu wa afya.',
+    unreviewedBadge: 'Haijakaguliwa',
+    // TODO(sw-review): development-only warning text.
+    unreviewedBanner: 'Bado haijakaguliwa na mtaalamu wa afya. Maandishi ya mfano kwa ajili ya majaribio tu.',
+    reviewedBy: 'Imekaguliwa na {{reviewer}} tarehe {{date}}',
+    source: 'Chanzo: {{source}}',
+    notFound: 'Makala hii haipatikani.',
+  },
 };
