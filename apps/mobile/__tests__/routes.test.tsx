@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { contentPolicy } from '../src/content/policy';
 import { setLanguage } from '../src/i18n';
 import { en } from '../src/i18n/locales/en';
 import { sw } from '../src/i18n/locales/sw';
@@ -72,15 +73,53 @@ describe('modules', () => {
     expect(screen).toHavePathnameWithParams('/module?id=findCare');
   });
 
-  it('shows the module title in the current language', async () => {
+  it('keeps the placeholder screen for modules without articles, in the current language', async () => {
     await setLanguage('sw');
-    await renderApp('/module?id=childGrowth');
-    expect((await screen.findAllByText(sw.modules.childGrowth)).length).toBeGreaterThan(0);
+    await renderApp('/module?id=journal');
+    expect((await screen.findAllByText(sw.modules.journal)).length).toBeGreaterThan(0);
     expect(screen.getByText(sw.module.notice)).toBeVisible();
   });
 
   it('falls back to a safe title for unknown module ids', async () => {
     await renderApp('/module?id=not-a-module');
     expect((await screen.findAllByText(en.modules.reproductiveHealth)).length).toBeGreaterThan(0);
+  });
+});
+
+describe('articles', () => {
+  afterEach(() => { contentPolicy.showUnreviewed = true; });
+
+  it('lists unreviewed sample articles with a badge in development builds', async () => {
+    await renderApp('/module?id=childGrowth');
+    expect(await screen.findByText('Sample article 1')).toBeVisible();
+    expect(screen.getAllByText(en.content.unreviewedBadge)).toHaveLength(2);
+  });
+
+  it('opens an article with a not-reviewed warning', async () => {
+    await renderApp('/module?id=nutrition');
+    await fireEvent.press(await screen.findByText('Sample article 2'));
+    expect(screen).toHavePathnameWithParams('/article?id=nutrition-sample-2');
+    expect(screen.getByText(en.content.unreviewedBanner)).toBeVisible();
+    expect(screen.getByText(/not health advice/)).toBeVisible();
+  });
+
+  it('shows articles in the current language', async () => {
+    await setLanguage('sw');
+    await renderApp('/article?id=pregnancy-sample-1');
+    expect(await screen.findByText('Makala ya mfano 1')).toBeVisible();
+    expect(screen.getByText(sw.content.unreviewedBanner)).toBeVisible();
+  });
+
+  it('hides unreviewed articles in release builds', async () => {
+    contentPolicy.showUnreviewed = false;
+    await renderApp('/module?id=childGrowth');
+    expect(await screen.findByText(en.content.empty)).toBeVisible();
+    expect(screen.queryByText('Sample article 1')).toBeNull();
+  });
+
+  it('refuses to open an unreviewed article in release builds', async () => {
+    contentPolicy.showUnreviewed = false;
+    await renderApp('/article?id=childGrowth-sample-1');
+    expect(await screen.findByText(en.content.notFound)).toBeVisible();
   });
 });

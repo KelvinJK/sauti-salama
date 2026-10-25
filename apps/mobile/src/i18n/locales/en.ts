@@ -56,6 +56,15 @@ export const en = {
     notice: 'Personal tracking and clinical guidance are not enabled in this prototype.',
     returnHome: 'Return to home',
   },
+  content: {
+    listSubtitle: 'Articles appear here once health professionals have reviewed them.',
+    empty: 'Articles for this topic are being prepared and reviewed by health professionals.',
+    unreviewedBadge: 'Not reviewed',
+    unreviewedBanner: 'Not yet reviewed by a health professional. Sample text for development only.',
+    reviewedBy: 'Reviewed by {{reviewer}} on {{date}}',
+    source: 'Source: {{source}}',
+    notFound: 'This article is not available.',
+  },
 };
 
 type DeepStrings<T> = { [K in keyof T]: T[K] extends string ? string : DeepStrings<T[K]> };
