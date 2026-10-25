@@ -29,7 +29,8 @@
     "owner": "evolucion-technologies",
     "scheme": "sautisalama",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ]
   }
 }
