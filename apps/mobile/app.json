@@ -26,6 +26,11 @@
         "projectId": "eeabe50a-2736-4ce7-813a-3a496d5a7ba9"
       }
     },
-    "owner": "evolucion-technologies"
+    "owner": "evolucion-technologies",
+    "scheme": "sautisalama",
+    "plugins": [
+      "expo-router",
+      "expo-localization"
+    ]
   }
 }
