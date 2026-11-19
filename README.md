@@ -20,3 +20,6 @@ Only use fictional synthetic health records during development. Never commit sec
 
 ## Status
 Starter scaffold only. No production authentication, medical decision-making features, or compliant data-processing architecture is implemented yet.
+
+## Licence
+Sauti Salama is open source under the [MIT Licence](LICENSE). The web app lives at [KelvinJK/sauti-salama-app](https://github.com/KelvinJK/sauti-salama-app).
